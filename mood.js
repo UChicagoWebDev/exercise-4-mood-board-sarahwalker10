@@ -1,37 +1,125 @@
+
 const bing_api_endpoint = "https://api.bing.microsoft.com/v7.0/images/search";
-const bing_api_key = BING_API_KEY
+const bing_api_key = BING_API_KEY;
+
+// Clear the search bar before you type a new search
+document.querySelector("#search-input").addEventListener("click", (e) => {
+  document.getElementById('search-input').value = "";
+});
+
+function clearResultsPane() {
+  closeResultsPane();
+  document.getElementById("suggestedSearches").innerHTML = '';
+  document.getElementById("resultsImageContainer").innerHTML = '';
+}
+
 
 function runSearch() {
 
-  // TODO: Clear the results pane before you run a new search
+  // Clear the results pane before you run a new search
+  clearResultsPane();
+
 
   openResultsPane();
+  // Build your query with bing_api_endpoint + search bar input.
+  const q = document.getElementById('search-input').value
+  var url = `${bing_api_endpoint}?q=${q}`;
 
-  // TODO: Build your query by combining the bing_api_endpoint and a query attribute
-  //  named 'q' that takes the value from the search bar input field.
-
+  // Construct the request object 
+  // i.e. build my order on doordash
   let request = new XMLHttpRequest();
+  request.open("GET", url);
 
-  // TODO: Construct the request object and add appropriate event listeners to
-  // handle responses. See:
-  // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest_API/Using_XMLHttpRequest
-  //
-  //   - You'll want to specify that you want json as your response type
-  //   - Look for your data in event.target.response
-  //   - When adding headers, also include the commented out line below. See the API docs at:
-  // https://docs.microsoft.com/en-us/bing/search-apis/bing-image-search/reference/headers
-  //   - When you get your responses, add elements to the DOM in #resultsImageContainer to
-  //     display them to the user
-  //   - HINT: You'll need to ad even listeners to them after you add them to the DOM
-  //
-  // request.setRequestHeader("Ocp-Apim-Subscription-Key", bing_api_key);
+  // specify that you want json as your response type
+  request.responseType = 'json';
+  //add header
+  request.setRequestHeader("Ocp-Apim-Subscription-Key", bing_api_key);
 
-  // TODO: Send the request
-
+  // when the responses come back, handle them in the load function
+  request.addEventListener("load", loadFunction);
+  
+  // send the request
+  //i.e. send the order to restaurant from doordash
+  request.send();
   return false;  // Keep this; it keeps the browser from sending the event
                   // further up the DOM chain. Here, we don't want to trigger
                   // the default form submission behavior.
 }
+
+
+
+// handle the responses that you get back from the API
+function loadFunction(event) {
+  //see results in the console
+  console.log(event);
+
+  // if server approves, create elements inside the html file 
+  // with the responses you received from API
+  if (event.target.status == 200) {
+    
+    //grab response
+    let response = event.target.response;
+    console.log(response)
+
+    //handle suggested searches
+    let options = document.getElementById("suggestedSearches");
+    response.relatedSearches.forEach(item => {
+      const newListItem = document.createElement("li");
+      const listText = document.createTextNode(item.text);
+
+      newListItem.setAttribute("id", item.webSearchUrl);
+      newListItem.setAttribute("text", item.text);
+      newListItem.addEventListener("click", chooseSuggested);
+      
+      newListItem.appendChild(listText);
+      options.appendChild(newListItem);
+  })
+
+
+    //place each image result inside the container
+    let dropdown = document.getElementById("resultsImageContainer");
+    response.value.forEach(item => {
+      const newDiv = document.createElement("div");
+      newDiv.setAttribute("class", "resultImage");
+
+      let newImg = document.createElement("img");
+      newImg.setAttribute("src", item.thumbnailUrl);
+      newImg.addEventListener("click", saveImg);
+
+      newDiv.appendChild(newImg);
+      dropdown.appendChild(newDiv);
+
+  })
+  }
+
+  
+};
+
+
+// add picture to your moodboard from the "click" event listener
+function saveImg (clickEvent) {
+  let board = document.getElementById("board");
+
+  const newImg = document.createElement("img");
+  let imgSrc = clickEvent.target.getAttribute("src");
+  newImg.setAttribute("src", imgSrc);
+
+  const newDiv = document.createElement("div");
+  newDiv.setAttribute("class", "savedImage");
+
+  newDiv.appendChild(newImg);
+  board.appendChild(newDiv);
+}
+
+
+function chooseSuggested (e) {
+  newSearch = e.target.getAttribute("text");
+  document.getElementById("search-input").value = newSearch;
+  runSearch()
+
+}
+
+
 
 function openResultsPane() {
   // This will make the results pane visible.
@@ -53,3 +141,4 @@ document.querySelector("#closeResultsButton").addEventListener("click", closeRes
 document.querySelector("body").addEventListener("keydown", (e) => {
   if(e.key == "Escape") {closeResultsPane()}
 });
+

@@ -53,3 +53,50 @@ any materials you consulted.
 - Use the DOM API to display related concept results to the user (1 point)
 - Clicking on a result image adds it to the user's mood board (2 points)
 - Clicking on a related concept runs a new search for that concept (1 point)
+
+
+### Sources
+- Aïcha Camara
+- https://developer.mozilla.org/en-US/docs/Web/API/Event/target
+
+- https://www.geeksforgeeks.org/how-to-access-variables-from-another-file-using-javascript/
+
+- https://developer.mozilla.org/en-US/play
+
+- https://www.w3schools.com/jsref/met_element_setattribute.asp
+
+- https://developer.mozilla.org/en-US/docs/Web/API/Element/setAttribute
+
+- https://developer.mozilla.org/en-US/docs/Web/API/Node/insertBefore
+
+- https://developer.mozilla.org/en-US/docs/Web/API/Element/setAttribute
+
+- https://developer.mozilla.org/en-US/docs/Web/API/Element/querySelector
+
+- https://javascript.info/xmlhttprequest
+
+- https://developer.mozilla.org/en-US/docs/Web/API/Response/json
+
+- https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest_API/Using_XMLHttpRequest
+
+- https://dhis2-app-course.ifi.uio.no/learn/javascript/manipulating-documents/events/add-listener/
+
+- https://stackoverflow.com/questions/55108850/what-is-bings-search-engine-url-for-queries
+
+- https://www.youtube.com/watch?v=oaliV2Dp7WQ
+
+- https://www.youtube.com/watch?v=LeNsDyLkMO4
+
+- https://www.geeksforgeeks.org/how-to-send-an-image-using-ajax/
+
+- https://www.shecodes.io/athena/75384-what-is-console-log-and-how-does-it-work#:~:text=log%20is%20a%20built%2Din,is%20happening%20in%20your%20code.&text=javascript-,console.,%22Hello%2C%20World!%22)%3B
+
+- https://www.w3schools.com/jsref/prop_search_value.asp
+
+- https://stackoverflow.com/questions/72022115/query-and-get-data-from-an-endpoint-through-the-a-search-bar-input-in-javascript
+
+- https://www.w3schools.com/jsref/met_document_queryselector.asp
+
+- https://www.w3schools.com/xml/ajax_xmlhttprequest_send.asp
+
+- https://stackoverflow.com/questions/71379304/clear-search-bar
